@@ -56,7 +56,7 @@ jobs:
 
   mobile-integration-tests:
     name: Run mobile end-to-end integration tests
-    runs-on: macos-latest
+    runs-on: self-hosted
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-java@v3
