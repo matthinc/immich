@@ -56,23 +56,14 @@ jobs:
 
   mobile-integration-tests:
     name: Run mobile end-to-end integration tests
-    runs-on: macos-latest
+    runs-on: self-hosted
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-java@v3
         with:
           distribution: 'adopt'
           java-version: '11'
-      - name: Cache android SDK
-        uses: actions/cache@v3
-        id: android-sdk
-        with:
-          key: android-sdk
-          path: |
-            /usr/local/lib/android/
-            ~/.android
       - name: Setup Android SDK
-        if: steps.android-sdk.outputs.cache-hit != 'true'
         uses: android-actions/setup-android@v2
       - name: Setup Flutter SDK
         uses: subosito/flutter-action@v2
@@ -85,7 +76,6 @@ jobs:
           working-directory: ./mobile
           api-level: 29
           arch: x86_64
-          profile: pixel
           target: default
           emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim
           disable-linux-hw-accel: false
